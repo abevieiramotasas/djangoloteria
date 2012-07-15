@@ -1,7 +1,5 @@
-
-
-f = open('resultados.csv', 'r')
-ff = open('resultadosf.csv', 'w')
+f = open('resultados[13-07-2012][13-07-2012].csv', 'r')
+ff = open('resultados[13-07-2012][13-07-2012]f.csv', 'w')
 
 lines = f.readlines()
 f.close()

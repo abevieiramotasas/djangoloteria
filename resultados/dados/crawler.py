@@ -13,8 +13,8 @@ DATA_RE = re.compile(r'(\d{2,})')
 
 URL_BASE = 'http://www.lotece.com.br/v2/?page_id=70&data='
 
-DATA_INICIAL = '02/05/2011'
-DATA_FINAL = '07/07/2012'
+DATA_INICIAL = '13/07/2012'
+DATA_FINAL = '13/07/2012'
 
 ONE_DAY = datetime.timedelta(1)
 
@@ -50,7 +50,7 @@ while data <= data_final:
     # incremento o dia
     data += ONE_DAY
 
-f = open('resultados.csv', 'w')
+f = open('resultados[%s][%s].csv' % (DATA_INICIAL.replace('/','-'), DATA_FINAL.replace('/','-')), 'w')
 # gerar um .csv
 LINE = '%s,%s,%s\n'
 for data in todos_resultados.keys():

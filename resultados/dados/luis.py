@@ -19,7 +19,7 @@ def metodo(TIME_MAX):
     total = 0
 
     # inicio com 40
-    resultados = Resultado.objects.order_by('-data')[:60]        
+    resultados = Resultado.objects.order_by('-data')[:70]        
     grupos_cache = constroi_cache(resultados)
     while time.time() - time_inicial < TIME_MAX:
         meus_randons = []
@@ -60,7 +60,7 @@ def predicao(num_erros):
       all_errors = True
       for resultado in cache[::-1]:
           random_grupo = random.randint(1,25)
-          if random_grupo not in resultado:
+          if random_grupo in resultado:
               all_errors = False
               break
     print("total :", time.time() - ini)
