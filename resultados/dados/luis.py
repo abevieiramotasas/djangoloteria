@@ -49,22 +49,27 @@ def metodo(TIME_MAX):
         max_errors = max([max_errors, position]) 
     print("randons :", max_randons, "total :", total)
     print("Maximo de erros foi:", max_errors) 
+  
+  
     
 def predicao(num_erros):
     ini = time.time()
+    
     resultados = Resultado.objects.order_by('-data')[:num_erros]
-    cache = constroi_cache(resultados)
+    resultados_grupos = constroi_cache(resultados)
     all_errors = False
     while not all_errors:
-      # tenta errar num_erros
-      all_errors = True
-      for resultado in cache[::-1]:
-          random_grupo = random.randint(1,25)
-          if random_grupo in resultado:
-              all_errors = False
-              break
-    print("total :", time.time() - ini)
-    return [random.randint(1,25) for x in range(3)]
+        # tenta errar num_erros
+        all_errors = True
+        cur_randons = []
+        for resultado_grupo in resultados_grupos[::-1]:
+            random_grupo = random.randint(1,25)
+            cur_randons.append((random_grupo, resultado_grupo))
+            if random_grupo in resultado_grupo:
+                all_errors = False
+                break
+    print time.time() - ini
+    return random.randint(1,25)
             
                         
         

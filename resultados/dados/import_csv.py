@@ -7,7 +7,7 @@ import datetime
 
 def importar():
     FILE_DIR = os.path.dirname(__file__)
-    RESULTADOS_PATH = os.path.join(FILE_DIR, 'resultados[13-07-2012][13-07-2012]f.csv')
+    RESULTADOS_PATH = os.path.join(FILE_DIR, 'resultados[19-07-2012][19-07-2012]f.csv')
     datareader = csv.reader(open(RESULTADOS_PATH), delimiter=',')
 
     for row in datareader:

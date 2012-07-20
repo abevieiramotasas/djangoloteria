@@ -1,5 +1,6 @@
-f = open('resultados[13-07-2012][13-07-2012].csv', 'r')
-ff = open('resultados[13-07-2012][13-07-2012]f.csv', 'w')
+#! /usr/bin/env python
+f = open('resultados[19-07-2012][19-07-2012].csv', 'r')
+ff = open('resultados[19-07-2012][19-07-2012]f.csv', 'w')
 
 lines = f.readlines()
 f.close()
