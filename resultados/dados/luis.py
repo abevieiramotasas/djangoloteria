@@ -94,6 +94,6 @@ def copy():
             r.premio_7 = str(v[9])
             r.premio_8 = str(v[10])
             r.premio_9 = str(v[11])
-            r.premio_10 = str(v[12])
+            r.premio_10 = str(v[12][:4])
             r.save()
     
