@@ -80,7 +80,7 @@ def predicao(num_erros, d_n_dn=0):
 def copy():
     with open('/app/resultados/dados/db.csv', 'r') as f:
         for line in f:
-            v = f.split(',')
+            v = line.split(',')
             r = Resultado()
             r.data = datatime.date(*(v[1].split('-')))
             r.turno = str(v[2])
