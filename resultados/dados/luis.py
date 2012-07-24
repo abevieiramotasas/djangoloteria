@@ -52,10 +52,16 @@ def metodo(TIME_MAX):
   
   
     
-def predicao(num_erros):
+def predicao(num_erros, d_n_dn=0):
     ini = time.time()
     
-    resultados = Resultado.objects.order_by('-data')[:num_erros]
+    if d_n_dn == 0:
+        resultados = Resultado.objects.order_by('-data')[:num_erros]
+    elif d_n_dn == 1:
+        resultados = Resultado.objects.filter(turno=1).order_by('-data')[:num_erros]
+    else:
+        resultados = Resultado.objects.filter(turno=2).order_by('-data')[:num_erros]
+    print(str(['data: %s turno: %s' % (str(r.data),str(r.turno)) for r in resultados]))
     resultados_grupos = constroi_cache(resultados)
     all_errors = False
     while not all_errors:

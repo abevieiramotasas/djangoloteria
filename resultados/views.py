@@ -1,14 +1,10 @@
-import csv
+from dados import luis, crawler
 from django.http import HttpResponse
-import os
 
-THIS_PATH = os.path.dirname(__file__)
-RESULTADOS_PATH = os.path.join(THIS_PATH, 'dados', 'resultados.csv')
-
-def importcsv(request):
-    datareader = csv.reader(open(RESULTADOS_PATH), delimiter=',')
-    response = ''
-    for row in datareader:
-        response += str(row)
-    return HttpResponse(response)
+def predizer(request, num, turno):
+    # num = request.GET['num']
+    return HttpResponse(str(luis.predicao(num, turno)))
     
+def atualiza(request, dia, mes, ano):
+    crawler.craw('%s/%s/%s' % (dia, mes, ano))
+    return HttpResponse('Atualizado')

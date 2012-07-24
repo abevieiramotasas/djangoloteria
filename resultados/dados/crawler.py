@@ -39,7 +39,7 @@ def craw(data_i, data_f=None):
             data += ONE_DAY
             continue
         if len(resultados) == 10: # apenas um horario
-            todos_resultados[data][1] = resultados
+            todos_resultados[data][2] = resultados
         else: # dois resultados
             todos_resultados[data][1] = resultados[:10]
             # 10:20 e nao 10: pois a pagina carrega tanto resultados do dia quanto do anterior
@@ -48,38 +48,38 @@ def craw(data_i, data_f=None):
         data += ONE_DAY
     print(str(todos_resultados))
     for data in todos_resultados.keys():
-        if 1 in todos_resultados[data]:
-            r = Resultado.objects.filter(data=data, turno=1)
-            if r is None:
-                r = Resultado()
-                r.data = data
-                r.turno = 1
-                r.premio_1 = todos_resultados[data][1][0]
-                r.premio_2 = todos_resultados[data][1][1]
-                r.premio_3 = todos_resultados[data][1][2]
-                r.premio_4 = todos_resultados[data][1][3]
-                r.premio_5 = todos_resultados[data][1][4]
-                r.premio_6 = todos_resultados[data][1][5]
-                r.premio_7 = todos_resultados[data][1][6]
-                r.premio_8 = todos_resultados[data][1][7]
-                r.premio_9 = todos_resultados[data][1][8]
-                r.premio_10 = todos_resultados[data][1][9]
-                r.save()
         if 2 in todos_resultados[data]:
             r = Resultado.objects.filter(data=data, turno=2)
-            if r is None:
+            if len(r) is 0:
+                r = Resultado()
+                r.data = data
+                r.turno = 2
+                r.premio_1 = todos_resultados[data][2][0]
+                r.premio_2 = todos_resultados[data][2][1]
+                r.premio_3 = todos_resultados[data][2][2]
+                r.premio_4 = todos_resultados[data][2][3]
+                r.premio_5 = todos_resultados[data][2][4]
+                r.premio_6 = todos_resultados[data][2][5]
+                r.premio_7 = todos_resultados[data][2][6]
+                r.premio_8 = todos_resultados[data][2][7]
+                r.premio_9 = todos_resultados[data][2][8]
+                r.premio_10 = todos_resultados[data][2][9]
+                r.save()
+        if 1 in todos_resultados[data]:
+            r = Resultado.objects.filter(data=data, turno=1)
+            if not len(r) is 0:
                 continue
             r = Resultado()
             r.data = data
-            r.turno = 2
-            r.premio_1 = todos_resultados[data][2][0]
-            r.premio_2 = todos_resultados[data][2][1]
-            r.premio_3 = todos_resultados[data][2][2]
-            r.premio_4 = todos_resultados[data][2][3]
-            r.premio_5 = todos_resultados[data][2][4]
-            r.premio_6 = todos_resultados[data][2][5]
-            r.premio_7 = todos_resultados[data][2][6]
-            r.premio_8 = todos_resultados[data][2][7]
-            r.premio_9 = todos_resultados[data][2][8]
-            r.premio_10 = todos_resultados[data][2][9]
+            r.turno = 1
+            r.premio_1 = todos_resultados[data][1][0]
+            r.premio_2 = todos_resultados[data][1][1]
+            r.premio_3 = todos_resultados[data][1][2]
+            r.premio_4 = todos_resultados[data][1][3]
+            r.premio_5 = todos_resultados[data][1][4]
+            r.premio_6 = todos_resultados[data][1][5]
+            r.premio_7 = todos_resultados[data][1][6]
+            r.premio_8 = todos_resultados[data][1][7]
+            r.premio_9 = todos_resultados[data][1][8]
+            r.premio_10 = todos_resultados[data][1][9]
             r.save()

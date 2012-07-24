@@ -18,6 +18,9 @@ class Resultado(models.Model):
     premio_9 = models.CharField(max_length=4)
     premio_10 = models.CharField(max_length=4)  
     
+    def __unicode__(self):
+        return str(self.data)
+    
     def resultados(self):
         return [self.premio_1,self.premio_2,self.premio_3,self.premio_4,self.premio_5,self.premio_6,self.premio_7,self.premio_8,self.premio_9,self.premio_10]
     
