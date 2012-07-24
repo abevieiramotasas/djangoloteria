@@ -78,7 +78,7 @@ def predicao(num_erros, d_n_dn=0):
     return random.randint(1,25)   
     
 def copy():
-    with open('db.csv', 'r') as f:
+    with open('/app/resultados/dados/db.csv', 'r') as f:
         for line in f:
             v = f.split(',')
             r = Resultado()
