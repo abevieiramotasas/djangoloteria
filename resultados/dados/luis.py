@@ -83,7 +83,7 @@ def copy():
         for line in f:
             v = line.split(',')
             r = Resultado()
-            r.data = datetime.date(*(v[1].split('-')))
+            r.data = datetime.date(*[int(s) for s in v[1].split('-'))])
             r.turno = str(v[2])
             r.premio_1 = str(v[3])
             r.premio_2 = str(v[4])
