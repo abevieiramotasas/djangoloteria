@@ -75,8 +75,24 @@ def predicao(num_erros, d_n_dn=0):
                 all_errors = False
                 break
     print time.time() - ini
-    return random.randint(1,25)
-            
-                        
-        
-        
+    return random.randint(1,25)   
+    
+def copy():
+    with open('db.csv', 'r') as f:
+        for line in f:
+            v = f.split(',')
+            r = Resultado()
+            r.data = datatime.date(*(v[1].split('-')))
+            r.turno = str(v[2])
+            r.premio_1 = str(v[3])
+            r.premio_2 = str(v[4])
+            r.premio_3 = str(v[5])
+            r.premio_4 = str(v[6])
+            r.premio_5 = str(v[7])
+            r.premio_6 = str(v[8])
+            r.premio_7 = str(v[9])
+            r.premio_8 = str(v[10])
+            r.premio_9 = str(v[11])
+            r.premio_10 = str(v[12])
+            r.save()
+    
