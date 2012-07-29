@@ -96,4 +96,66 @@ def copy():
             r.premio_9 = str(v[11])
             r.premio_10 = str(v[12][:4])
             r.save()
-    
+
+def more(badge, base, t):
+    if (badge is None or len(badge) is 0):
+        base = base + 10
+        if (t is 0):
+            badge = Resultado.objects.order_by('-data')[base - 10:base]
+        else:
+            badge = Resultado.objects.filter(turno=t).order_by('-data')[base - 10:base]
+        badge = [r for r in badge]
+    resultado = badge[0]
+    del(badge[0])
+    return (resultado, badge, base)        
+        
+def mais_velho(turno=0):
+    i = 0
+    premios = [[] for _ in range(10)]
+    badge = None
+    base = 0
+    while (i < 250):
+        r, badge, base = more(badge, base, turno)
+        # meu deus, porque nao fui atras de ver como usar array com o orm
+        p = grupo(r.premio_1)
+        # print(str(badge))
+        if (not p in [x for x,y,z in premios[0]]):
+            premios[0].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_2)
+        if (not p in [x for x,y,z in premios[1]]):
+            premios[1].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_3)
+        if (not p in [x for x,y,z in premios[2]]):
+            premios[2].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_4)
+        if (not p in [x for x,y,z in premios[3]]):
+            premios[3].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_5)
+        if (not p in [x for x,y,z in premios[4]]):
+            premios[4].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_6)
+        if (not p in [x for x,y,z in premios[5]]):
+            premios[5].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_7)
+        if (not p in [x for x,y,z in premios[6]]):
+            premios[6].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_8)
+        if (not p in [x for x,y,z in premios[7]]):
+            premios[7].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_9)
+        if (not p in [x for x,y,z in premios[8]]):
+            premios[8].append((p, r.data, r.turno))
+            i = i + 1
+        p = grupo(r.premio_10)
+        if (not p in [x for x,y,z in premios[9]]):
+            premios[9].append((p, r.data, r.turno))
+            i = i + 1
+    return premios   
