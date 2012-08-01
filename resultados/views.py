@@ -8,6 +8,12 @@ def predizer(request, num, turno):
 def atualiza(request, dia, mes, ano):
     crawler.craw('%s/%s/%s' % (dia, mes, ano))
     return HttpResponse('Atualizado')
+
+def atualiza_hoje(request):
+    import datetime
+    d = datetime.date.today()
+    crawler.craw('%s/%s/%s' %(d.day, d.month, d.year))
+    return HttpResponse('Atualizado')
     
 def mais_velho(request, turno):
     return HttpResponse(luis.gera_formatado(luis.mais_velho(turno), ''), turno)
