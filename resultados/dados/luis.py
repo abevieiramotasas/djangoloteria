@@ -100,9 +100,9 @@ def copy():
 def more(badge, base, t):
     if (badge is None or len(badge) is 0):
         base = base + 10
-        if (t is 0):
-            badge = Resultado.objects.order_by('-data')[base - 10:base]
-        else:
+        if (int(t) is 0):
+            badge = Resultado.objects.order_by('-data', 'turno')[base - 10:base]
+        else:            
             badge = Resultado.objects.filter(turno=t).order_by('-data')[base - 10:base]
         badge = [r for r in badge]
     resultado = badge[0]
@@ -159,3 +159,28 @@ def mais_velho(turno=0):
             premios[9].append((p, r.data, r.turno))
             i = i + 1
     return premios   
+    
+def gera_formatado(a, nome):
+    t = {u'1':'Noturno', u'2':'Diurno'}
+    table = """
+    <table border="1">
+
+    <tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>
+    <tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>
+    <tr><td>%s</td><td>%s</td></tr>
+
+    </table>"""
+    values = [[] for _ in range(10)]
+    with open('%s.html' % nome, 'w') as fp:
+        i = 1
+        for a_r in a:
+            values[i-1].append('<table border="1" cellspacing="2" cellpadding="5">')
+            values[i-1].append('%d' % i)
+            for grupo, data, turno in a_r[::-1]: 
+                values[i-1].append('<tr><td>')               
+                values[i-1].append('%d</td><td>%s</td><td>%s' % (grupo, data.strftime('%d/%m/%y'), t[turno]))                
+                values[i-1].append('</td></tr>')
+            i = i + 1
+            values[i-2].append('</table>')
+        #fp.write(table % tuple([''.join(v) for v in values]))
+    return table % tuple([''.join(v) for v in values])
