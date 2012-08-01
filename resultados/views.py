@@ -20,6 +20,7 @@ def mais_velho(request, turno):
     
 def index(request):
     html = """
+    <a href='/loteria/update'>Atualizar resultado de hoje</a><br>
     <a href='/loteria/35/0'>Predizer diurno e noturno</a><br>
     <a href='/loteria/35/2'>Predizer diurno</a><br>
     <a href='/loteria/35/1'>Predizer noturno</a><br>
