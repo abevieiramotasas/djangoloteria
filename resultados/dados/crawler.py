@@ -10,7 +10,7 @@ def craw(data_i, data_f=None):
     if data_f is None:
         data_f = data_i
     RESULTADO_RE = re.compile(r'<div class="numeros">[^0-9]*?([0-9]*?)[^0-9]*?</div>')
-    DATA_RE = re.compile(r'(\d{2,})')
+    DATA_RE = re.compile(r'(\d{1,})')
 
     URL_BASE = 'http://www.lotece.com.br/v2/?page_id=70&data='
 
