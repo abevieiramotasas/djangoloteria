@@ -11,7 +11,10 @@ def constroi_cache(res):
         grupos_cache.append([grupo(milhar) for milhar in resultado.resultados()])
     return grupos_cache
         
-        
+def gera_array(r):
+    resultado = [r.premio_1,r.premio_2,r.premio_3,r.premio_4,r.premio_5,r.premio_6,r.premio_7,r.premio_8,r.premio_9,r.premio_10]
+    return [int(r) for r in resultado]        
+
 def metodo(TIME_MAX):
     time_inicial = time.time()
     max_errors = 0
@@ -160,6 +163,56 @@ def mais_velho(turno=0):
             i = i + 1
     return premios   
     
+def gera_formatado_all(a,b,c):
+    t = {u'1':'Noturno', u'2':'Diurno'}
+    table = """
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    <table border="0">
+    <tr><td>%s</td><td>%s</td><td>%s</td></tr>
+    </table>
+    """
+    values = [[] for _ in range(30)]
+    pos = 0
+    for x in range(10):
+        for z in [a,b,c]:
+            values[pos].append('<table border="1" cellspacing="2" cellpadding="5">')            
+            values[pos].append('<b>premio %d</b>' % (x + 1))
+            for grupo, data, turno in z[x][::-1]:
+                values[pos].append('<tr><td>')               
+                values[pos].append('<b>%d</b></td><td>%s</td><td>%s' % (grupo, data.strftime('%d/%m/%y'), t[turno]))                
+                values[pos].append('</td></tr>')
+            values[pos].append('</table>')
+            pos = pos + 1
+    print([''.join(v) for v in values][0])
+    return table % tuple([''.join(v) for v in values])
+    
+    
 def gera_formatado(a, nome):
     t = {u'1':'Noturno', u'2':'Diurno'}
     table = """
@@ -171,16 +224,27 @@ def gera_formatado(a, nome):
 
     </table>"""
     values = [[] for _ in range(10)]
-    with open('%s.html' % nome, 'w') as fp:
-        i = 1
-        for a_r in a:
-            values[i-1].append('<table border="1" cellspacing="2" cellpadding="5">')
-            values[i-1].append('%d' % i)
-            for grupo, data, turno in a_r[::-1]: 
-                values[i-1].append('<tr><td>')               
-                values[i-1].append('%d</td><td>%s</td><td>%s' % (grupo, data.strftime('%d/%m/%y'), t[turno]))                
-                values[i-1].append('</td></tr>')
-            i = i + 1
-            values[i-2].append('</table>')
-        #fp.write(table % tuple([''.join(v) for v in values]))
+    i = 1
+    for a_r in a:
+        values[i-1].append('<table border="1" cellspacing="2" cellpadding="5">')
+        values[i-1].append('%d' % i)
+        for grupo, data, turno in a_r[::-1]: 
+            values[i-1].append('<tr><td>')               
+            values[i-1].append('%d</td><td>%s</td><td>%s' % (grupo, data.strftime('%d/%m/%y'), t[turno]))                
+            values[i-1].append('</td></tr>')
+        i = i + 1
+        values[i-2].append('</table>')
     return table % tuple([''.join(v) for v in values])
+    
+    
+def results_pos(turn):
+    final = [[[] for _ in range(25)] for _ in range(10)]
+    t = 0
+    rr = Resultado.objects.filter(turno=turn).order_by('-data')
+    for r in rr:
+        l = gera_array(r)
+        for i in range(10):
+            r_i = l[i]
+            final[i][grupo(r_i) - 1].append(t)
+        t = t+1
+    return final

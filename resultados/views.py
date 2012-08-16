@@ -18,6 +18,9 @@ def atualiza_hoje(request):
 def mais_velho(request, turno):
     return HttpResponse(luis.gera_formatado(luis.mais_velho(turno), ''), turno)
     
+def mais_velho_all(request):
+    return HttpResponse(luis.gera_formatado_all(luis.mais_velho(2), luis.mais_velho(1), luis.mais_velho(0)))
+    
 def index(request):
     html = """
     <a href='/loteria/update'>Atualizar resultado de hoje</a><br>
@@ -28,5 +31,6 @@ def index(request):
     <a href='/loteria/mais_velho/0'>Mais velho diurno e noturno</a><br>
     <a href='/loteria/mais_velho/2'>Mais velho diurno</a><br>
     <a href='/loteria/mais_velho/1'>Mais velho noturno</a><br>
+    <a href='/loteria/mais_velho_all'>Mais velho todos</a><br>
     """
     return HttpResponse(html)

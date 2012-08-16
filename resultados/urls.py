@@ -7,4 +7,5 @@ urlpatterns = patterns('resultados.views',
     url(r'^update/(?P<dia>\d{1,2})-(?P<mes>\d{1,2})-(?P<ano>\d{4})', 'atualiza'),
     url(r'^update/$', 'atualiza_hoje'),
     url(r'^mais_velho/(?P<turno>\d)$', 'mais_velho'),
+    url(r'mais_velho_all$', 'mais_velho_all')
 )
